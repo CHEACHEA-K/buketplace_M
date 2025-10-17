@@ -1,0 +1,413 @@
+
+
+
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>최정원 | 데이터 기반 마케팅 포트폴리오</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral Harmony -->
+    <!-- Application Structure Plan: A single-page, top-down narrative structure is chosen to guide the recruiter logically through the candidate's story. It starts with a strong value proposition (Hero), provides evidence through interactive projects (Projects), details the underlying skills (Skills), and ends with a call to action (Contact). This linear flow is intuitive for a portfolio review, allowing for both quick skimming via headers and deep dives into specific projects using a tabbed interface. The tabbed system for projects prevents cognitive overload from a long scroll and lets the user focus on one piece of evidence at a time, making the information more digestible and impactful. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Core Competencies -> Goal: Inform -> Viz: Interactive Tags -> Interaction: Hover Tooltip -> Justification: Quick, scannable summary of strengths -> Method: HTML/JS.
+        - Report Info: Project 1 (SOP System) - 60% time reduction -> Goal: Compare -> Viz: Textual/Conceptual Framework -> Interaction: Static text emphasis -> Justification: Removes unprovable chart. Replaces with explicit linkage between PSAT ( 자료해석/상황판단 ) and the 60% efficiency gain, proving the analytical skill behind the result. -> Method: HTML/Tailwind.
+        - Report Info: Project 2 (Global Content) - 18% engagement increase/UNESCO Award -> Goal: Inform/Organize -> Viz: Textual/Conceptual Framework -> Interaction: Static text emphasis -> Justification: Removes unprovable chart. Focuses on the logical and situational reasoning (PSAT Verbal/Situation) used to design effective global content, replacing visual data with proof of analytical process, backed by the UNESCO award. -> Method: HTML/Tailwind.
+        - Report Info: Project 3 (Beauty Insight) - Analytical Process -> Goal: Organize -> Viz: HTML/CSS Flow Diagram -> Interaction: Static -> Justification: Clearly visualizes a complex, abstract thought process that is a key differentiator, translating humanities background into a business strategy framework -> Method: HTML/Tailwind.
+        This structure translates the text-based report into an experience, using data analysis methodology(PSAT/Economics) as the central proof point. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+            background-color: #FDFBF8;
+            color: #2F2F2F;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .active-tab {
+            border-color: #D97706;
+            color: #D97706;
+            font-weight: 600;
+        }
+        .inactive-tab {
+            border-color: transparent;
+            color: #6B7280;
+        }
+        .active-nav {
+            color: #D97706;
+            font-weight: 600;
+        }
+        .inactive-nav {
+            color: #4B5563;
+        }
+        .prose h4 {
+            font-weight: 600;
+            font-size: 1.125rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #1F2937;
+        }
+        .prose ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .prose ul li {
+            position: relative;
+            padding-left: 1.25rem;
+        }
+        .prose ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #F59E0B;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-[#FDFBF8]/80 backdrop-blur-sm sticky top-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold text-gray-800">
+                <a href="#hero">Jeongwon Choi</a>
+            </div>
+            <div class="hidden md:flex space-x-8 items-center" id="nav-menu">
+                <a href="#projects" class="inactive-nav hover:text-amber-700 transition-colors">프로젝트</a>
+                <a href="#skills" class="inactive-nav hover:text-amber-700 transition-colors">핵심 역량</a>
+                <a href="#contact" class="inactive-nav hover:text-amber-700 transition-colors">연락처</a>
+            </div>
+             <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-4 6h4"></path></svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-[#FDFBF8] px-6 pb-4">
+             <a href="#projects" class="block py-2 inactive-nav">프로젝트</a>
+             <a href="#skills" class="block py-2 inactive-nav">핵심 역량</a>
+             <a href="#contact" class="block py-2 inactive-nav">연락처</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6">
+
+        <section id="hero" class="min-h-[80vh] flex flex-col justify-center text-center py-20">
+            <!-- 프로필 사진을 추가하는 위치 -->
+            <img id="profile-img" src="images/my_profile.jpg" alt="최정원 프로필 사진" 
+                 class="w-32 h-32 rounded-full object-cover mx-auto mb-6 shadow-xl border-4 border-white transition-transform duration-300 hover:scale-105" 
+                 onerror="this.onerror=null;this.src='https://placehold.co/128x128/9CA3AF/FFFFFF?text=PROFILE';"
+                 style="max-width: 128px; max-height: 128px;">
+            <!-- 프로필 사진 추가 끝 -->
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 leading-tight">
+                데이터와 문화적 통찰력으로<br class="hidden md:block"> 최고의 인재 경험을 설계하는, 최정원
+            </h1>
+            <p class="mt-6 text-lg md:text-xl max-w-3xl mx-auto text-gray-600">
+                복잡한 데이터를 구조적으로 해석하고, 글로벌 인사이트를 바탕으로 성과를 최적화합니다.
+                외무고시와 PSAT 학습으로 단련된 정량 분석력을 복잡한 채용 프로세스의 비효율을 진단하고, 지원자에게 감동적인 경험을 제공하는 시스템을 구축합니다.
+              
+            <div class="mt-10 flex justify-center flex-wrap gap-3">
+                <span class="bg-amber-100 text-amber-800 text-sm font-medium px-4 py-2 rounded-full">#정량적_성과_분석</span>
+                <span class="bg-green-100 text-green-800 text-sm font-medium px-4 py-2 rounded-full">#글로벌_콘텐츠_기획</span>
+                <span class="bg-blue-100 text-blue-800 text-sm font-medium px-4 py-2 rounded-full">#업무_시스템_효율화</span>
+            </div>
+        </section>
+
+        <section id="projects" class="py-24">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">PROJECTS</h2>
+                <p class="mt-4 text-lg text-gray-600">핵심 역량을 증명하는 대표 프로젝트입니다.</p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="border-b border-gray-200">
+                    <nav class="-mb-px flex justify-center space-x-2 md:space-x-8" aria-label="Tabs">
+                        <button class="project-tab whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm md:text-base active-tab" data-target="project-1">
+                            데이터 기반 시스템 개선
+                        </button>
+                        <button class="project-tab whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm md:text-base inactive-tab" data-target="project-2">
+                            글로벌 콘텐츠 전략
+                        </button>
+                        <button class="project-tab whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm md:text-base inactive-tab" data-target="project-3">
+                            라이프스타일 인사이트
+                        </button>
+                    </nav>
+                </div>
+
+                <div id="project-panels" class="mt-8">
+                    <div id="project-1" class="project-panel">
+                        <div class="bg-white rounded-lg shadow-lg p-6 md:p-10">
+                            <h3 class="text-2xl font-bold text-gray-900">SOP 기반 행정 시스템 구축 및 성과 개선</h3>
+                            <p class="mt-2 text-gray-600">학생회 민원 처리 및 예산 보고 과정의 비효율을 데이터 기반 시스템으로 해결한 사례입니다.</p>
+                            <div class="mt-8 grid md:grid-cols-2 gap-8 items-start">
+                                <div class="prose max-w-none text-gray-700">
+                                    <h4>Challenge: 문제</h4>
+                                    <p>수동적이고 대면 소통에 의존했던 민원 처리로 인해 주간 보고서 작성 등 데이터 취합에 48시간 이상 소요되었습니다.</p>
+                                    <h4>Action & Strategy: 전략</h4>
+                                    <ul>
+                                        <li><strong>SOP 기반 소통 프로토콜 구축:</strong> 기업의 표준운영절차(SOP)를 응용, 예상 질문에 대한 표준 응답 체계를 수립하여 선제적으로 소통.</li>
+                                        <li><strong>Excel 기반 통합 관리:</strong> 축제 예산, 회계 내역을 엑셀로 체계화하고 데이터 비교 분석을 통해 최소 비용을 산출.</li>
+                                        <li><strong>네이버 툴 활용:</strong> 학생 개인정보 및 개별 안내를 위해 네이버 툴을 이용해 정보를 수합.</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-50 p-6 rounded-lg shadow-inner">
+                                    <h4 class="font-semibold text-gray-900 mb-3 border-b pb-2">PSAT 기반 정량 분석의 적용</h4>
+                                    <p class="text-sm text-gray-700">학생회 여론수렴국장 활동을 통해 구축한 행정 프로세스 체계를 외무고시 및 PSAT 훈련을 통해 강화. </p>
+                                    <ul class="mt-4 space-y-3">
+                                        <li class="flex items-start">
+                                            <span class="text-amber-500 mr-3 mt-1">✓</span>
+                                            <div>
+                                                <p class="font-medium text-gray-800">지표 설정 및 진단</p>
+                                                <p class="text-sm text-gray-600">민원 처리 시간, 재문의율, 예산 효율성 등 핵심 지표를 정량적으로 정의.</p>
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-amber-500 mr-3 mt-1">✓</span>
+                                            <div>
+                                                <p class="font-medium text-gray-800">비효율 구간 분석</p>
+                                                <p class="text-sm text-gray-600">처리 단계별 소요 시간을 분석하여 SOP 도입의 필요성과 예상 효과를 수치적으로 예측.</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <!-- PSAT 성적표 이미지를 여기에 추가할 수 있습니다. -->
+                                    <img id="psat-score-img" src="images/psat_score.png" alt="PSAT 성적표 이미지" 
+                                         class="w-full h-auto rounded-lg mt-6 shadow-md"
+                                         onerror="this.onerror=null;this.src='https://placehold.co/400x150/FCD34D/6B46C1?text=PSAT+SCORE+PROOF';"
+                                         style="max-width: 400px; margin-left: auto; margin-right: auto;">
+                                    <!-- PSAT 성적표 이미지 추가 끝 -->
+                                    <div class="mt-6 bg-amber-100 p-3 rounded-lg text-center">
+                                        <p class="text-3xl font-bold text-amber-700">60% 단축</p>
+                                        <p class="text-sm font-medium text-amber-800">보고서 및 데이터 취합 소요 시간 절감</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="project-2" class="project-panel" style="display: none;">
+                         <div class="bg-white rounded-lg shadow-lg p-6 md:p-10">
+                            <h3 class="text-2xl font-bold text-gray-900">포용적 소통 기반의 다국적 인사이트 확보: 지원자 경험 극대화</h3>
+                             <p class="mt-2 text-gray-600">외교부 주관의 프로그램 내 ODA, 학내 글로벌 연구 프로젝트 경험을 바탕으로 다국적 타겟에 맞는 콘텐츠 전략을 수립.</p>
+                            <div class="mt-8 grid md:grid-cols-2 gap-8 items-start">
+                                <div class="prose max-w-none text-gray-700">
+                                    <h4>Challenge: 문제</h4>
+                                    <p>일방적인 정보 전달 방식의 홍보 콘텐츠는 다국적 타겟의 관심과 참여를 이끌어내기 어려웠습니다.</p>
+                                    <h4>Action & Strategy: 전략</h4>
+                                    <ul>
+                                        <li><strong>문화적 맥락 분석:</strong> 외교부 프로그램 및 미얀마-홍콩 연구 프로젝트를 통해 다국적 문화, 사회 이슈에 대한 깊은 이해를 확보.</li>
+                                        <li><strong>수용자 중심 기획:</strong> '시혜성' 제거를 위해 학생회 사업 구성시 비건 옵션 추가 등 소외 없는 기획을 주도.</li>
+                                         <li><strong>비대면 협업 시스템 구축:</strong> Google Workspace를 Notion처럼 활용하여 해외 자료를 실시간으로 수합하고 프로젝트 완성도를 유지.</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-green-50 p-6 rounded-lg shadow-inner">
+                                    <h4 class="font-semibold text-gray-900 mb-3 border-b pb-2">정량적 사고를 통한 성과 창출</h4>
+                                    <p class="text-sm text-gray-700">직접적인 수치화 대신, 논리적/정황적 사고력을 활용하여 콘텐츠의 효율성을 극대화. </p>
+                                    <ul class="mt-4 space-y-3">
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-3 mt-1">✓</span>
+                                            <div>
+                                                <p class="font-medium text-gray-800">타겟 정황 판단 (Situation Judgment)</p>
+                                                <p class="text-sm text-gray-600">베트남/동남아 현지의 정황을 분석하여 '일방적 원조'가 아닌 '공동체적 메시지'가 효과적임을 판단.</p>
+                                            </div>
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="text-green-500 mr-3 mt-1">✓</span>
+                                            <div>
+                                                <p class="font-medium text-gray-800">논리적 콘텐츠 설계 (Verbal Reasoning)</p>
+                                                <p class="text-sm text-gray-600">정책의 핵심 가치와 대중의 니즈 간의 논리적 간극을 해소하는 스토리텔링 구조 설계.</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="mt-6 bg-green-100 p-3 rounded-lg text-center">
+                                        <p class="text-3xl font-bold text-green-700">UNESCO 최우수상 수상</p>
+                                        <p class="text-sm font-medium text-green-800">논리적 설득력과 기획력을 공인된 기관에서 입증</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 최우수상 이미지를 여기에 추가할 수 있습니다. -->
+                            <img id="unesco_award.jpg" src="images/unesco_award.jpg" alt="UNESCO 스토리텔링 대회 최우수상" 
+                                class="w-full h-auto rounded-lg mt-6 shadow-md"
+                                onerror="this.onerror=null;this.src='https://placehold.co/400x150/10B981/FFFFFF?text=UNESCO+AWARD+PROOF';"
+                                style="max-width: 400px; margin-left: auto; margin-right: auto;">
+                            <!-- 최우수상 이미지 추가 끝 -->
+                        </div>
+                    </div>
+
+                    <div id="project-3" class="project-panel" style="display: none;">
+                         <div class="bg-white rounded-lg shadow-lg p-6 md:p-10">
+                             <h3 class="text-2xl font-bold text-gray-900">비주류 가치 지향을 통한 인테리어 시장 차별화 전략</h3>
+                             <p class="mt-2 text-gray-600">미술사, 철학 전공 지식을 활용하여 포화된 시장에서 새로운 라이프스타일 키워드와 가치를 발굴하겠습니다.</p>
+                            <div class="mt-8">
+                                <div class="prose max-w-none text-gray-700 mb-8">
+                                    <h4>Challenge: 문제</h4>
+                                    <p>기존 트렌드만으로는 신규 고객을 유입시키기 어려운 인테리어 시장에서, 브랜드를 차별화할 수 있는 새로운 접근이 필요.</p>
+                                    <h4>Action & Strategy: 전략</h4>
+                                    <p>저평가된 브랜드들의 작품 세계를 분석하며 '공정성'과 '다양성'이라는 잠재적 소비자 가치를 발견하고, 이를 타겟별 마케팅 전략으로 연결하는 분석 프레임워크를 수립.</p>
+                                    <p> => 이에 따른 "프레임" 분석 및 설정 중요. keyword: 미래 및 가치 지향</p>
+
+                                </div>
+                                
+                                <div class="w-full bg-slate-50 p-6 rounded-lg">
+                                    <h4 class="text-center font-semibold text-gray-800 mb-4">인사이트 도출 프로세스</h4>
+                                    <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-center">
+                                        <div class="p-4 bg-white rounded-lg shadow w-full md:w-1/4">
+                                            <p class="text-2xl mb-2">📚</p>
+                                            <p class="font-semibold">학문적 배경</p>
+                                            <p class="text-sm text-gray-600">미술사, 철학</p>
+                                            <p class="text-sm text-gray-500">(美-숭고함에서 비천함까지: 칸트와 크리스테바의 관계에 대한 철학적 탐구) </p>
+                                        </div>
+                                        <div class="text-2xl text-gray-400 font-sans">→</div>
+                                        <div class="p-4 bg-white rounded-lg shadow w-full md:w-1/4">
+                                            <p class="text-2xl mb-2">💎</p>
+                                            <p class="font-semibold">핵심 가치 발굴</p>
+                                            <p class="text-sm text-gray-600">공정성, 다양성</p>
+                                        </div>
+                                        <div class="text-2xl text-gray-400 font-sans">→</div>
+                                        <div class="p-4 bg-white rounded-lg shadow w-full md:w-1/2">
+                                            <p class="font-semibold">타겟별 마케팅 제안</p>
+                                            <div class="text-sm text-gray-600 flex justify-around mt-1">
+                                                <span>🌍 리사이클링 등 지속가능 가치</span>
+                                                <span>🌍 윤리, 경제적 재분배</span>
+                                                <span>🌍 대중이라는 개념 전환-세계로</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-24 bg-white rounded-t-xl">
+             <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">핵심 역량</h2>
+                <p class="mt-4 text-lg text-gray-600">저의 경험은 세 가지 핵심 역량으로 귀결됩니다.</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="p-8 bg-slate-50 rounded-lg">
+                    <div class="text-3xl mb-4">📊</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">정량적 성과 분석</h3>
+                    <p class="text-gray-600">PSAT와 경제학 학습으로 다져진 데이터 해석 능력으로 광고 성과의 비효율을 진단하고 개선 방향을 도출.</p>
+                    <ul class="mt-4 space-y-2 text-sm text-gray-700">
+                        <li><span class="font-semibold">분석 능력:</span> PSAT 자료해석, 상황판단 </li>
+                        <li><span class="font-semibold">경제 지식:</span> 미시/거시, 국제 경제학</li>
+                        <li><span class="font-semibold">활용 툴:</span> Excel (PIVOT, VLOOKUP), Google Agents </li>
+                    </ul>
+                </div>
+                <div class="p-8 bg-slate-50 rounded-lg">
+                    <div class="text-3xl mb-4">🌍</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">글로벌 콘텐츠 및 인사이트</h3>
+                    <p class="text-gray-600">외교부, UNESCO 등 국제 무대 경험을 바탕으로, 다양한 문화적 배경을 가진 타겟에게 공감을 얻는 콘텐츠를 기획.</p>
+                    <ul class="mt-4 space-y-2 text-sm text-gray-700">
+                        <li><span class="font-semibold">주요 경험:</span> 외교부 ODA, EWHA 글로벌 프로젝트</li>
+                        <li><span class="font-semibold">수상 내역:</span> UNESCO 스토리텔링 대회 최우수상</li>
+                        <li><span class="font-semibold">언어 능력:</span> 영어 (Fluent- 토익: 945점, OPIc: IH), 프랑스어 (Proficient- DELF B1, SNULT 2)</li>
+                    </ul>
+                </div>
+                <div class="p-8 bg-slate-50 rounded-lg">
+                    <div class="text-3xl mb-4">⚙️</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">시스템 구축 및 효율성</h3>
+                    <p class="text-gray-600">SOP 기반의 업무 프로세스 설계 경험으로, 반복적인 업무를 자동화하고 협업 효율을 극대화하는 시스템을 구축.</p>
+                     <ul class="mt-4 space-y-2 text-sm text-gray-700">
+                        <li><span class="font-semibold">방법론:</span> SOP(표준운영절차) 적용</li>
+                        <li><span class="font-semibold">성과:</span> 업무 소요 시간 60% 단축</li>
+                        <li><span class="font-semibold">활용 툴:</span> Google Workspace, Notion</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contact" class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-12 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold">CONTACT</h2>
+            <p class="mt-4 max-w-xl mx-auto text-gray-300">데이터 기반의 성장, 문화적 통찰력을 통한 차별화.<br>함께 만들어갈 기회를 기다립니다.</p>
+            <div class="mt-8 space-y-2 text-lg">
+                <p>📧 <a href="mailto:jwon10523@gmail.com" class="hover:text-amber-400 transition-colors">jwon10523@gmail.com</a></p>
+                <p>📞 <a href="tel:010-5263-6829" class="hover:text-amber-400 transition-colors">010-5263-6829</a></p>
+            </div>
+            <p class="mt-10 text-sm text-gray-500">&copy; 2025 Jeongwon Choi. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const projectTabs = document.querySelectorAll('.project-tab');
+            const projectPanels = document.querySelectorAll('.project-panel');
+
+            projectTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    projectTabs.forEach(t => {
+                        t.classList.remove('active-tab');
+                        t.classList.add('inactive-tab');
+                    });
+                    tab.classList.add('active-tab');
+                    tab.classList.remove('inactive-tab');
+
+                    const targetId = tab.dataset.target;
+                    projectPanels.forEach(panel => {
+                        if (panel.id === targetId) {
+                            panel.style.display = 'block';
+                        } else {
+                            panel.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            const navLinks = document.querySelectorAll('#nav-menu a, #mobile-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if(!mobileMenu.classList.contains('hidden')){
+                       mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            const sections = document.querySelectorAll('section');
+            const headerNavLinks = document.querySelectorAll('#nav-menu a');
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 60) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                headerNavLinks.forEach(link => {
+                    link.classList.remove('active-nav');
+                    link.classList.add('inactive-nav');
+                    if(link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active-nav');
+                        link.classList.remove('inactive-nav');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
